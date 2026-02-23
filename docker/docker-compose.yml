@@ -1,0 +1,125 @@
+services:
+  mariadb:
+    image: mariadb:10.6
+    container_name: frappe-orchestrator-db
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-RootPassword123}
+      MYSQL_USER: ${DB_USER:-frappe}
+      MYSQL_PASSWORD: ${DB_PASSWORD:-FrappePassword123}
+      MYSQL_DATABASE: ${DB_NAME:-frappe}
+    volumes:
+      - mariadb_data:/var/lib/mysql
+      - ./mariadb.cnf:/etc/mysql/conf.d/custom.cnf
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+      interval: 10s
+    networks:
+      - frappe-network
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+
+  redis-cache:
+    image: redis:7-alpine
+    container_name: frappe-orchestrator-redis-cache
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_cache_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      timeout: 5s
+      retries: 5
+      interval: 5s
+    networks:
+      - frappe-network
+
+  redis-queue:
+    image: redis:7-alpine
+    container_name: frappe-orchestrator-redis-queue
+    ports:
+      - "6380:6379"
+    volumes:
+      - redis_queue_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      timeout: 5s
+      retries: 5
+      interval: 5s
+    networks:
+      - frappe-network
+
+  frappe:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    container_name: frappe-orchestrator-app
+    ports:
+      - "8000:8000"
+    environment:
+      FRAPPE_APP_NAME: frappe-orchestrator
+      FRAPPE_DB_HOST: mariadb
+      FRAPPE_DB_PORT: 3306
+      FRAPPE_DB_NAME: ${DB_NAME:-frappe}
+      FRAPPE_DB_USER: ${DB_USER:-frappe}
+      FRAPPE_DB_PASSWORD: ${DB_PASSWORD:-FrappePassword123}
+      REDIS_CACHE_HOST: redis-cache
+      REDIS_CACHE_PORT: 6379
+      REDIS_QUEUE_HOST: redis-queue
+      REDIS_QUEUE_PORT: 6379
+      FRAPPE_SECRET_KEY: ${FRAPPE_SECRET_KEY:-secret-key-change-in-production}
+      FRAPPE_ENVIRONMENT: ${FRAPPE_ENVIRONMENT:-development}
+      ENABLE_SCHEDULER: ${ENABLE_SCHEDULER:-1}
+    volumes:
+      - frappe_sites:/home/frappe/frappe-bench/sites
+      - frappe_logs:/home/frappe/frappe-bench/logs
+      - ../apps:/home/frappe/frappe-bench/apps/orchestrator-apps
+    depends_on:
+      mariadb:
+        condition: service_healthy
+      redis-cache:
+        condition: service_healthy
+      redis-queue:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/api/method/frappe.client.get_list"]
+      timeout: 10s
+      retries: 5
+      interval: 30s
+    networks:
+      - frappe-network
+    stdin_open: true
+    tty: true
+
+  nginx:
+    image: nginx:alpine
+    container_name: frappe-orchestrator-nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ../docker/ssl:/etc/nginx/ssl:ro
+      - frappe_sites:/home/frappe/frappe-bench/sites:ro
+    depends_on:
+      - frappe
+    networks:
+      - frappe-network
+
+volumes:
+  mariadb_data:
+    driver: local
+  redis_cache_data:
+    driver: local
+  redis_queue_data:
+    driver: local
+  frappe_sites:
+    driver: local
+  frappe_logs:
+    driver: local
+
+networks:
+  frappe-network:
+    driver: bridge

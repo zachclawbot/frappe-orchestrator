@@ -1,0 +1,2 @@
+include MANIFEST.in
+recursive-include orchestrator_gameplan *.html *.css *.js *.csv *.png *.jpg *.svg *.json *.txt

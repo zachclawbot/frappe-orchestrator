@@ -1,0 +1,2 @@
+# Orchestrator Documents dependencies
+# frappe is provided by the bench environment

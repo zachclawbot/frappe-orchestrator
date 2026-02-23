@@ -1,0 +1,27 @@
+# Docker build ignore list
+.git
+.gitignore
+.env
+.env.local
+.env.*.local
+README.md
+CHANGELOG.md
+LICENSE
+docs/
+scripts/
+.vscode/
+.idea/
+*.log
+tests/
+node_modules/
+__pycache__/
+*.pyc
+.pytest_cache/
+.coverage
+dist/
+build/
+*.egg-info/
+.DS_Store
+Thumbs.db
+backups/
+docker/ssl/
