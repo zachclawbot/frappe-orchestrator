@@ -1,0 +1,449 @@
+/*
+ * Chateau Orchestrator Custom Theme
+ * Applies Archivo font and brand colors to Frappe UI
+ */
+
+/* Import Archivo font from Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&display=swap');
+
+/* CSS Variables - Brand Colors */
+:root {
+    /* Brand Colors */
+    --brand-orange: #f26522;
+    --brand-teal: #0c4b5e;
+    
+    /* Semantic Colors */
+    --semantic-success: #03c95a;
+    --semantic-info: #1b84ff;
+    --semantic-danger: #e70d0d;
+    --semantic-warning: #ffc107;
+    
+    /* Neutral Colors */
+    --neutral-sidebar: #212529;
+    --neutral-background: #f8f9fa;
+    --neutral-text: #212529;
+    --neutral-text-light: #6c757d;
+    
+    /* Border Radius */
+    --radius-card: 10px;
+    --radius-button: 5px;
+    
+    /* Override Frappe's primary color with brand teal */
+    --primary: var(--brand-teal);
+    --primary-bg: var(--brand-teal);
+    --primary-text: #ffffff;
+    
+    /* Accent color - brand orange */
+    --accent: var(--brand-orange);
+    --accent-bg: var(--brand-orange);
+    
+    /* Success/Danger/Info states */
+    --success: var(--semantic-success);
+    --danger: var(--semantic-danger);
+    --info: var(--semantic-info);
+    --warning: var(--semantic-warning);
+}
+
+/* Global Typography - Archivo font */
+body,
+.page-container,
+.page-head,
+.page-title,
+.sidebar,
+.navbar,
+.form-control,
+.btn,
+.input-with-feedback,
+.control-label,
+.indicator,
+.list-row,
+.tree-label {
+    font-family: 'Archivo', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif !important;
+}
+
+/* Headings */
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6 {
+    font-family: 'Archivo', sans-serif !important;
+    font-weight: 600;
+}
+
+/* Navbar - Brand Teal */
+.navbar {
+    background-color: var(--brand-teal) !important;
+    border-bottom: 3px solid var(--brand-orange);
+}
+
+.navbar-brand,
+.navbar-nav .nav-link {
+    color: #ffffff !important;
+}
+
+.navbar-nav .nav-link:hover {
+    color: var(--brand-orange) !important;
+}
+
+/* Sidebar - Dark */
+.desk-sidebar,
+.sidebar-section,
+#page-Workspaces .sidebar-section {
+    background-color: var(--neutral-sidebar) !important;
+    color: #ffffff;
+}
+
+.sidebar-item-container .sidebar-item-control {
+    color: #ffffff;
+}
+
+.sidebar-item-container .sidebar-item-control:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: var(--brand-orange);
+}
+
+.sidebar-item-container .sidebar-item-control.selected {
+    background-color: var(--brand-teal);
+    color: #ffffff;
+    border-left: 4px solid var(--brand-orange);
+}
+
+/* Primary Buttons - Brand Orange */
+.btn-primary,
+.primary-action,
+.page-head-actions .btn-primary {
+    background-color: var(--brand-orange) !important;
+    border-color: var(--brand-orange) !important;
+    color: #ffffff !important;
+    border-radius: var(--radius-button);
+    font-weight: 500;
+}
+
+.btn-primary:hover {
+    background-color: #d9561c !important;
+    border-color: #d9561c !important;
+}
+
+/* Secondary Buttons - Brand Teal */
+.btn-secondary {
+    background-color: var(--brand-teal) !important;
+    border-color: var(--brand-teal) !important;
+    color: #ffffff !important;
+    border-radius: var(--radius-button);
+}
+
+.btn-secondary:hover {
+    background-color: #094053 !important;
+}
+
+/* Success Buttons */
+.btn-success {
+    background-color: var(--semantic-success) !important;
+    border-color: var(--semantic-success) !important;
+    border-radius: var(--radius-button);
+}
+
+/* Danger Buttons */
+.btn-danger {
+    background-color: var(--semantic-danger) !important;
+    border-color: var(--semantic-danger) !important;
+    border-radius: var(--radius-button);
+}
+
+/* Cards & Widgets */
+.widget,
+.dashboard-card,
+.frappe-card,
+.card {
+    border-radius: var(--radius-card) !important;
+    border: 1px solid #dee2e6;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.widget:hover,
+.dashboard-card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* Links - Brand Teal */
+a {
+    color: var(--brand-teal);
+}
+
+a:hover {
+    color: var(--brand-orange);
+}
+
+/* Badges & Indicators */
+.badge-primary,
+.indicator.blue {
+    background-color: var(--brand-teal) !important;
+}
+
+.badge-success,
+.indicator.green {
+    background-color: var(--semantic-success) !important;
+}
+
+.badge-danger,
+.indicator.red {
+    background-color: var(--semantic-danger) !important;
+}
+
+.badge-warning,
+.indicator.orange {
+    background-color: var(--brand-orange) !important;
+}
+
+/* Form Controls */
+.form-control,
+.input-with-feedback,
+.frappe-control input,
+.frappe-control textarea,
+.frappe-control select {
+    border-radius: var(--radius-button);
+    border: 1px solid #ced4da;
+    font-family: 'Archivo', sans-serif;
+}
+
+.form-control:focus,
+.input-with-feedback:focus {
+    border-color: var(--brand-teal);
+    box-shadow: 0 0 0 0.2rem rgba(12, 75, 94, 0.15);
+}
+
+/* Page Titles */
+.page-title,
+.page-head-title {
+    color: var(--brand-teal);
+    font-weight: 600;
+}
+
+/* Tabs */
+.nav-tabs .nav-link {
+    border-radius: var(--radius-button) var(--radius-button) 0 0;
+}
+
+.nav-tabs .nav-link.active {
+    background-color: var(--brand-teal);
+    color: #ffffff;
+    border-color: var(--brand-teal);
+}
+
+/* Dashboard Widgets */
+.widget-head {
+    background-color: var(--neutral-background);
+    border-bottom: 2px solid var(--brand-orange);
+    font-weight: 600;
+}
+
+/* Number Cards */
+.number-card-loading,
+.number-card {
+    border-radius: var(--radius-card);
+}
+
+.number-card .card-body {
+    padding: 1.5rem;
+}
+
+.number-card-number {
+    color: var(--brand-teal);
+    font-weight: 700;
+}
+
+/* Alerts */
+.alert-success {
+    background-color: rgba(3, 201, 90, 0.1);
+    border-color: var(--semantic-success);
+    color: #025e2e;
+}
+
+.alert-danger {
+    background-color: rgba(231, 13, 13, 0.1);
+    border-color: var(--semantic-danger);
+    color: #8b0808;
+}
+
+.alert-info {
+    background-color: rgba(27, 132, 255, 0.1);
+    border-color: var(--semantic-info);
+    color: #0a4999;
+}
+
+.alert-warning {
+    background-color: rgba(255, 193, 7, 0.1);
+    border-color: var(--semantic-warning);
+    color: #856404;
+}
+
+/* List Views */
+.list-row {
+    border-radius: var(--radius-button);
+}
+
+.list-row:hover {
+    background-color: rgba(12, 75, 94, 0.05);
+}
+
+.list-row-head {
+    background-color: var(--neutral-background);
+    font-weight: 600;
+}
+
+/* Checkboxes - Brand Orange when checked */
+input[type="checkbox"]:checked {
+    background-color: var(--brand-orange);
+    border-color: var(--brand-orange);
+}
+
+/* Progress Bars */
+.progress-bar {
+    background-color: var(--brand-orange);
+}
+
+/* Dropdown Menus */
+.dropdown-menu {
+    border-radius: var(--radius-button);
+}
+
+.dropdown-item:hover,
+.dropdown-item:focus {
+    background-color: rgba(12, 75, 94, 0.05);
+    color: var(--brand-teal);
+}
+
+/* Avatar/Profile Badge */
+.avatar {
+    border-radius: 50%;
+    border: 2px solid var(--brand-orange);
+}
+
+/* Status Indicators */
+.indicator-pill {
+    border-radius: 12px;
+    padding: 2px 10px;
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+/* Workspace Icons */
+.workspace-icon {
+    color: var(--brand-orange);
+}
+
+/* Page Background */
+.page-container {
+    background-color: var(--neutral-background);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--brand-teal);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--brand-orange);
+}
+
+/* Hide Frappe Branding (Optional) */
+.footer-powered-by {
+    display: none !important;
+}
+
+/* Custom Login Page Styling */
+.page-card {
+    border-radius: var(--radius-card);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.page-card-head {
+    background-color: var(--brand-teal);
+    color: #ffffff;
+    border-radius: var(--radius-card) var(--radius-card) 0 0;
+}
+
+/* Focus States - Accessibility */
+button:focus,
+a:focus,
+input:focus,
+textarea:focus,
+select:focus {
+    outline: 2px solid var(--brand-orange);
+    outline-offset: 2px;
+}
+
+/* Table Styling */
+table.table {
+    border-radius: var(--radius-card);
+    overflow: hidden;
+}
+
+table.table thead {
+    background-color: var(--brand-teal);
+    color: #ffffff;
+}
+
+table.table tbody tr:hover {
+    background-color: rgba(12, 75, 94, 0.05);
+}
+
+/* Modal Dialogs */
+.modal-content {
+    border-radius: var(--radius-card);
+}
+
+.modal-header {
+    background-color: var(--brand-teal);
+    color: #ffffff;
+    border-radius: var(--radius-card) var(--radius-card) 0 0;
+}
+
+.modal-footer .btn-primary {
+    background-color: var(--brand-orange) !important;
+}
+
+/* Quick Entry Forms */
+.quick-entry-form {
+    border-radius: var(--radius-card);
+}
+
+/* Chart Colors */
+.chart-container {
+    border-radius: var(--radius-card);
+}
+
+/* Custom Brand Logo Area */
+.navbar-brand img {
+    max-height: 40px;
+}
+
+/* Responsive Typography */
+@media (max-width: 768px) {
+    body {
+        font-size: 14px;
+    }
+    
+    h1, .h1 {
+        font-size: 1.75rem;
+    }
+    
+    h2, .h2 {
+        font-size: 1.5rem;
+    }
+}
+
+/* Print Styles - Keep branding in prints */
+@media print {
+    .navbar {
+        border-bottom: 3px solid var(--brand-orange);
+    }
+}
